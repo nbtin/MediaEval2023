@@ -2,11 +2,14 @@
 from ultralytics import YOLO
 
 model = YOLO("../models/yolov8m.pt")
-
-results = model.predict(
-    source="../data/VISEM-Tracking/VISEM_Tracking_Train_v4/Train/12/12.mp4",
-
+model.train(
+    data="coco128.yaml",
+    epochs=30,
 )
+
+# results = model.predict(
+#     source="../data/VISEM-Tracking/VISEM_Tracking_Train_v4/Train/12/12.mp4",
+# )
 
 # result = results[0]
 # print(len(result.boxes))

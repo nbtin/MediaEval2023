@@ -2,7 +2,6 @@
 *.pt
 *.mp4
 *.out
-*.ipynb
 *.ipynb_checkpoints
 predictions/
 videos/
