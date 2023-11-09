@@ -1,0 +1,7 @@
+
+train: /home/peter/Documents/git-repo/MediaEval2023/source_code/code_and_checkpoints/dataset/VISEM-Tracking/VISEM_Tracking_Train_v4/Train  # train images (relative to 'path')
+val: /home/peter/Documents/git-repo/MediaEval2023/source_code/code_and_checkpoints/dataset/VISEM-Tracking/VISEM_Tracking_Train_v4/Train  # val images (relative to 'path')
+
+nc: 3  # number of classes
+names: ['sperm', 'sperm cluster', 'small or pinhead sperm']  # class names
+

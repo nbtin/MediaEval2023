@@ -2,7 +2,6 @@
 *.pt
 *.mp4
 *.out
-*.ipynb
 *.ipynb_checkpoints
 predictions/
 videos/
@@ -176,8 +175,10 @@ YOLOX_outputs
 !cfg/yolov3*.cfg
 
 storage.googleapis.com
-runs/*
+runs/
 data/*
+test_dataset/
+models/
 data/images/*
 !data/*.yaml
 !data/hyps
