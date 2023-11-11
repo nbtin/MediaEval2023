@@ -21,7 +21,7 @@ from skimage.feature import hog
 import copy
 
 def apply_brightness_contrast(input_img, brightness = 0, contrast = 0):
-    
+
     if brightness != 0:
         if brightness > 0:
             shadow = brightness
@@ -31,16 +31,16 @@ def apply_brightness_contrast(input_img, brightness = 0, contrast = 0):
             highlight = 255 + brightness
         alpha_b = (highlight - shadow)/255
         gamma_b = shadow
-        
+
         buf = cv2.addWeighted(input_img, alpha_b, input_img, 0, gamma_b)
     else:
         buf = input_img.copy()
-    
+
     if contrast != 0:
         f = 131*(contrast + 127)/(127*(131-contrast))
         alpha_c = f
         gamma_c = 127*(1-f)
-        
+
         buf = cv2.addWeighted(buf, alpha_c, buf, 0, gamma_c)
 
     return buf
@@ -96,7 +96,7 @@ def get_roi_tiles(img, bbox, r=15, visualize=False, visualize_tiles=False):
     ylim = 480*0.025
 
     xmin, xmax, ymin, ymax = round(cx-w/2-r), round(cx+w/2+r), round(cy-h/2-r), round(cy+h/2+r)
-    if xmin <= 0: 
+    if xmin <= 0:
         xmin = 0
     if ymin <= 0:
         ymin = 0
@@ -132,9 +132,9 @@ def get_roi_tiles(img, bbox, r=15, visualize=False, visualize_tiles=False):
         y1 = round(y - r)
         y2 = round(y + r)
 
-        if x1 <= xmin: 
+        if x1 <= xmin:
             x1 = xmin
-        if y1 <= ymin: 
+        if y1 <= ymin:
             y1 = ymin
         if x2 >= xmax:
             x2 = xmax
@@ -150,9 +150,9 @@ def check_tail(hog_array):
     tail = False
 
     for ix, (k, res) in enumerate(result.items()):
-        
+
         peaks, peak_plateaus = find_peaks(res, plateau_size=1)
-        
+
         if len(peaks) < 1:
             continue
         if np.count_nonzero(np.diff(res)==0) >= 4:
@@ -165,19 +165,19 @@ def check_tail(hog_array):
         if not candidate_peak:
             continue
         tail = True
-        
+
     return tail
 
 
 def get_image_gradient_histogram(img, visualize=False):
-    
+
     low_threshold = 255/3
     high_threshold = 255
     img = cv2.GaussianBlur(img, (5, 5), 0)
     edge = cv2.Canny(img, low_threshold, high_threshold)
     fd, hog_image = hog(edge, orientations=9, pixels_per_cell=img.shape,
                     cells_per_block=(1, 1), visualize=True)
-    
+
 
     if visualize:
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 4), sharex=True, sharey=True)
@@ -192,7 +192,7 @@ def get_image_gradient_histogram(img, visualize=False):
         ax2.axis('off')
         ax2.imshow(hog_image, cmap='gray')
         ax2.set_title('Histogram of Oriented Gradients')
-        plt.show() 
+        plt.show()
     return fd
 
 
@@ -294,7 +294,7 @@ def detect(save_img=False):
             if len(det):
                 # Rescale boxes from img_size to im0 size
                 det[:, :4] = scale_coords(img.shape[2:], det[:, :4], im0.shape).round()
-                
+
                 # Suppression
                 if opt.suppress:
                     st = time.perf_counter()
@@ -315,7 +315,7 @@ def detect(save_img=False):
                         bbox = det_[d, :4]
                         tiles = get_roi_tiles(im0, bbox=bbox, visualize=False)
                         result = {}
-                        
+
                         lines = False
                         for idx, tile in tiles.items():
                             if idx == 4:
@@ -325,20 +325,20 @@ def detect(save_img=False):
                                     lines = True
                                     break
                                 result[idx] = get_image_gradient_histogram(img=tile, visualize=False)
-                        
+
                         if lines:
                             tail = True
                         else:
                             tail = check_tail(result)
-                            
+
                         if tail:
                             to_del[d] = 1
-                            
+
                     det = det[to_del == 1]
-                    
+
                     en = time.perf_counter()
                     print("Extra time taken: {}".format(round(en-st, 2)))
-                
+
 
                 # Print results
                 for c in det[:, -1].unique():
