@@ -2,10 +2,11 @@ from ultralytics import YOLO
 import torch
 
 # check if cuda is available
-print(torch.cuda.is_available())
+if torch.cuda.is_available():
+    print(torch.cuda.get_device_name())
 
 # load the yolov8 nano model
-model = YOLO("yolov8n.pt")
+model = YOLO("yolov8s.pt")
 
 # train the model with the config data input as specified in the data.yaml file
 model.train(
