@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=nbtin       # create a short name for your job
+#SBATCH --job-name=nvloc       # create a short name for your job
 #SBATCH --nodes=1                # node count
 #SBATCH --ntasks=1               # total number of tasks across all nodes
 #SBATCH --cpus-per-task=4        # cpu-cores per task (>1 if multi-threaded tasks)
@@ -20,8 +20,8 @@ module load anaconda3-2021.05-gcc-9.3.0-r6itwa7
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu/
 
 conda init bash
-# conda create -n nbtin
-source activate nbtin
-pip install -r ~/git-repo/MediaEval2023/source_code/code_and_checkpoints/yolov8/requirements.txt
+conda create -n nvloc
+conda activate nvloc
+pip install -r ~/MediaEval2023/source_code/code_and_checkpoints/yolov8/requirements.txt
 
 conda deactivate
