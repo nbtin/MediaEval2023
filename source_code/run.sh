@@ -4,7 +4,7 @@
 #SBATCH --nodelist=selab2
 #SBATCH --mem-per-cpu=4GB
 eval "$(conda shell.bash hook)"
-conda activate medico
+conda activate nbtin
 
 CUDA_LAUNCH_BLOCKING=1
 
@@ -16,8 +16,7 @@ python3 run.py \
     --save-txt \
     --save-json \
     --conf=0.25 \
-    --iou=0.7 \
-    --exist-ok
+    --iou=0.7 
 
 python3 run.py \
     --weights=models/yolov8s.pt \
@@ -25,8 +24,7 @@ python3 run.py \
     --save-txt \
     --save-json \
     --conf=0.25 \
-    --iou=0.7 \
-    --exist-ok
+    --iou=0.7 
 
 python3 run.py \
     --weights=models/yolov8s.pt \
@@ -34,8 +32,7 @@ python3 run.py \
     --save-txt \
     --save-json \
     --conf=0.25 \
-    --iou=0.7 \
-    --exist-ok
+    --iou=0.7 
 
 python3 run.py \
     --weights=models/yolov8s.pt \
@@ -43,8 +40,7 @@ python3 run.py \
     --save-txt \
     --save-json \
     --conf=0.25 \
-    --iou=0.7 \
-    --exist-ok
+    --iou=0.7 
 
 python3 run.py \
     --weights=models/yolov8s.pt \
@@ -52,5 +48,4 @@ python3 run.py \
     --save-txt \
     --save-json \
     --conf=0.25 \
-    --iou=0.7 \
-    --exist-ok
+    --iou=0.7

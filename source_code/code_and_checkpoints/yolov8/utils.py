@@ -1,3 +1,5 @@
+import os
+import shutil
 import io
 import json
 import moviepy.editor as mp
@@ -74,6 +76,23 @@ def convert_avi_to_mp4(avi_video_path: str, mp4_dest_video_path: str):
     except OSError as e:
         raise OSError(f"Error occurred during conversion: {e}")
 
+def move_tracking_labels_results(source, destination):
+    """
+    Move folder from source to destination
+    """
+    try:
+        new_path = rename_labels_folder(source)
+        os.system("mv " + new_path + " " + destination)
+    except OSError as e:
+        raise OSError(f"Error occurred during moving: {e}")
+
+
+def rename_labels_folder(path):
+    try:
+        os.rename(path, os.path.join(os.path.dirname(path), "labels_ftid"))
+        return os.path.join(os.path.dirname(path), "labels_ftid")
+    except OSError as e:
+        raise OSError(f"Error occurred during renaming: {e}")
 
 # https://github.com/LouisDo2108/MediaEval2023-Medico-EvalScript/blob/main/medico_eval_scripts/subtask2_example.py
 def print_fps_and_flops(model: YOLO):

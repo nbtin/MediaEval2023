@@ -6,8 +6,12 @@ from utils import (
     get_save_dir_from_results,
     write_json_file,
     print_fps_and_flops,
+    move_tracking_labels_results,
 )
 import os
+
+DETECT_FOLDER = ""
+TRACK_FOLDER = ""
 
 
 # https://docs.python.org/3/library/argparse.html
@@ -124,6 +128,8 @@ def detect(
         iou=iou,
     )
     save_dir = get_save_dir_from_results(results)
+    global DETECT_FOLDER
+    DETECT_FOLDER = save_dir
     convert_avi_to_mp4(f"{save_dir}/{name}.avi", f"{save_dir}/{name}.mp4")
     os.remove(f"{save_dir}/{name}.avi")
     if not save_json:
@@ -146,11 +152,14 @@ def track(
         save=True,
         project=project,
         name=name,
+        save_txt=True,
         exist_ok=exist_ok,
         conf=conf,
         iou=iou,
     )
     save_dir = get_save_dir_from_results(results)
+    global TRACK_FOLDER
+    TRACK_FOLDER = save_dir
     convert_avi_to_mp4(
         f"{save_dir}/{name}.avi",
         f"{project}/{name}/{name}_tracking.mp4",
@@ -205,6 +214,8 @@ def perform_both_tasks(
     """Perform both tasks."""
     perform_detect_task(model, name, opt)
     perform_track_task(model, name, opt)
+    move_tracking_labels_results(os.path.join(TRACK_FOLDER, "labels"), DETECT_FOLDER)
+    os.rmdir(TRACK_FOLDER)
 
 
 
