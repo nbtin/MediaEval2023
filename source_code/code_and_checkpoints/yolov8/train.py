@@ -1,5 +1,6 @@
-from ultralytics import YOLO
 import torch
+
+from ultralytics import YOLO
 
 # check if cuda is available
 if torch.cuda.is_available():

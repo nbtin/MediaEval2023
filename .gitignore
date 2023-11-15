@@ -178,7 +178,7 @@ YOLOX_outputs
 !cfg/yolov3*.cfg
 
 storage.googleapis.com
-runs/*
+runs/
 data/*
 data/images/*
 !data/*.yaml
@@ -417,3 +417,4 @@ crashlytics-build.properties
 fabric.properties
 data/
 .vscode/
+task.sh
