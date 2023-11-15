@@ -80,3 +80,4 @@ Please upgrade `moviepy` with the below command:
 ```
 pip install --upgrade moviepy
 ```
+After running, you will see 2 folders, for example (`66` and `662`). This happens because the detect and track tasks create 2 separate folders. But you can ignore the `662` folder, because we have transfer the tracking result into `66/66_tracking.mp4`
