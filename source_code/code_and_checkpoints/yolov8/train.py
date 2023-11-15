@@ -12,7 +12,7 @@ model = YOLO("yolov8s.pt")
 model.train(
     task="detect",
     data="data.yaml",
-    epochs=100,
+    epochs=50,
     imgsz=640,
     batch=64,
     plots=True,
