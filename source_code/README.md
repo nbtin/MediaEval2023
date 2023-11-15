@@ -5,7 +5,6 @@ This project uses the YOLOv8 model to perform object detection and tracking on v
 .
 ├── predictions
 │   ├── 66
-│   │   ├── 66.avi
 │   │   ├── 66_detection.json
 │   │   ├── 66.mp4
 │   │   ├── 66_tracking.mp4
@@ -66,7 +65,9 @@ The script takes the following arguments:
 - `name`: the name of the sub-folder of `project`, which contains output for a specific video. The system will automatically get the ID of the video (for example, `66` for `66.mp4`) and use it as the name of the sub-folder.
 - `save-txt`: use this flag to save the output in `.txt` format. By default, the `run.sh` will use this flag (recommended).
 - `save-json`: use this flag to save detection information in `.json` format. By default, the `run.sh` will use this flag.
-- `exist-ok`: use this flag to overwrite the output folder if it already exists. By default, the `run.sh` will not use this flag. For example, if a folder named `66` has already existed, the default command in `run.sh` will create another folder named `662` to store new output.
+- `exist-ok`: use this flag to overwrite the output folder if it already exists. By default, the `run.sh` will use this flag. For example, if a folder named `66` has already existed, the default command in `run.sh` will create another folder named `662` to store new output.
+- `conf`: the confidence threshold for the model to detect an object. Default is `0.25`.
+- `iou`: the IoU threshold for the model to detect an object. Default is `0.70`.
 
 # Note
 If you meet this error (happens when converting from `.avi` file to `.mp4` file)
@@ -80,4 +81,4 @@ Please upgrade `moviepy` with the below command:
 ```
 pip install --upgrade moviepy
 ```
-After running, you will see 2 folders, for example (`66` and `662`). This happens because the detect and track tasks create 2 separate folders. But you can ignore the `662` folder, because we have transfer the tracking result into `66/66_tracking.mp4`
+After running, if you do not use the `exist-ok` flag, you will see 2 folders, for example (`66` and `662`). This happens because the detect and track tasks create 2 separate folders. But you can ignore the `662` folder, because we have transfer the tracking result into `66/66_tracking.mp4`
