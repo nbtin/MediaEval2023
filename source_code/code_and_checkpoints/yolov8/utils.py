@@ -68,6 +68,7 @@ def convert_avi_to_mp4(avi_video_path: str, mp4_dest_video_path: str):
         raise OSError(f"Error occurred during conversion: {e}")
 
 
+# https://github.com/LouisDo2108/MediaEval2023-Medico-EvalScript/blob/main/medico_eval_scripts/subtask2_example.py
 def print_fps_and_flops(model: YOLO):
     """Print FPS and FLOPS."""
     input_tensor = torch.randn(1, 3, 224, 224)
