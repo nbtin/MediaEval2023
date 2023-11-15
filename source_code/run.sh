@@ -14,28 +14,38 @@ python3 run.py \
     --weights=models/yolov8s.pt \
     --source=datasets/Test/66.mp4 \
     --save-txt \
-    --save-json
+    --save-json \
+    --conf=0.25 \
+    --iou=0.7
 
 python3 run.py \
     --weights=models/yolov8s.pt \
     --source=datasets/Test/68.mp4 \
     --save-txt \
-    --save-json
+    --save-json \
+    --conf=0.25 \
+    --iou=0.7
 
 python3 run.py \
     --weights=models/yolov8s.pt \
     --source=datasets/Test/73.mp4 \
     --save-txt \
-    --save-json
+    --save-json \
+    --conf=0.25 \
+    --iou=0.7
 
 python3 run.py \
     --weights=models/yolov8s.pt \
     --source=datasets/Test/76.mp4 \
     --save-txt \
-    --save-json
+    --save-json \
+    --conf=0.25 \
+    --iou=0.7
 
 python3 run.py \
     --weights=models/yolov8s.pt \
     --source=datasets/Test/80.mp4 \
     --save-txt \
-    --save-json
+    --save-json \
+    --conf=0.25 \
+    --iou=0.7

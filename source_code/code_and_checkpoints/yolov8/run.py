@@ -58,6 +58,18 @@ def parse_arguments(parser: argparse.ArgumentParser) -> argparse.Namespace:
         action="store_true",
         help="save a cocoapi-compatible JSON results file",
     )
+    parser.add_argument(
+        "--conf",
+        type=float,
+        default=0.25,
+        help="confidence threshold",
+    )
+    parser.add_argument(
+        "--iou",
+        type=float,
+        default=0.7,
+        help="NMS IoU threshold",
+    )
     return parser.parse_args()
 
 
@@ -90,6 +102,8 @@ def detect(
     save_txt: bool = True,
     exist_ok: bool = False,
     save_json: bool = True,
+    conf: float = 0.25,
+    iou: float = 0.7,
 ) -> None:
     """Run detecting task."""
     results = model.predict(
@@ -101,12 +115,14 @@ def detect(
         name=name,
         exist_ok=exist_ok,
         save_conf=True,
+        conf=conf,
+        iou=iou,
     )
     save_dir = get_save_dir_from_results(results)
     convert_avi_to_mp4(f"{save_dir}/{name}.avi", f"{save_dir}/{name}.mp4")
     if not save_json:
         return
-    write_json_file(results[0].tojson(), f"{project}/{name}/{name}_detection.json")
+    write_json_file(results, f"{project}/{name}/{name}_detection.json")
 
 
 def track(
@@ -115,6 +131,8 @@ def track(
     project: str,
     name: str,
     exist_ok: bool = False,
+    conf: float = 0.25,
+    iou: float = 0.7,
 ) -> None:
     """Run tracking task."""
     results = model.track(
@@ -123,6 +141,8 @@ def track(
         project=project,
         name=name,
         exist_ok=exist_ok,
+        conf=conf,
+        iou=iou,
     )
     save_dir = get_save_dir_from_results(results)
     convert_avi_to_mp4(f"{save_dir}/{name}.avi", f"{project}/{name}/{name}_tracking.mp4")
@@ -143,6 +163,8 @@ def perform_detect_task(
         opt.save_txt,
         opt.exist_ok,
         opt.save_json,
+        opt.conf,
+        opt.iou,
     )
 
 
@@ -158,6 +180,8 @@ def perform_track_task(
         opt.project,
         name,
         opt.exist_ok,
+        opt.conf,
+        opt.iou,
     )
 
 

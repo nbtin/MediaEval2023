@@ -8,16 +8,28 @@ except NameError:
     to_unicode = str
 
 
+def create_json_data(raw_data):
+    """
+    Create JSON data from raw data.
+    """
+    results = []
+    for i in range(len(raw_data)):
+        data = raw_data[i]
+        for j in range(len(data.boxes.xyxy)):
+            json_data = {
+                "bbox": [round(num, 5) for num in data.boxes.xyxy[j].tolist()],
+                "category_id": int(data.boxes.cls[j]),
+                "image_id": i + 1,
+                "score": round(float(data.boxes.conf[j]), 5),
+            }
+            results.append(json_data)
+    return results
+
 # https://stackoverflow.com/questions/12309269/how-do-i-write-json-data-to-a-file
 def write_json_file(data, filename):
-    with io.open(filename, "w", encoding="utf8") as outfile:
-        str_ = json.dumps(
-            data,
-            indent=4, sort_keys=True,
-            separators=(",", ": "),
-            ensure_ascii=True,
-        )
-        outfile.write(to_unicode(str_))
+    json_data = create_json_data(data)
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(json_data, f, ensure_ascii=False, indent=4)
 
 
 
