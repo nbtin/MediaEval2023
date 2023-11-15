@@ -14,7 +14,7 @@ This project uses the YOLOv8 model to perform object detection and tracking on v
     ├── ...
 ├── source_code
 │   └── code_and_checkpoints
-│       ├── README.md
+│   ├── README.md
 │       └── yolov8
 │           ├── datasets
 │           │   ├── Test
@@ -48,13 +48,9 @@ This project uses the YOLOv8 model to perform object detection and tracking on v
 
 # Setup
 1. Create a conda environment with `python==3.8`
-2. Set current working directory as `source_code/code_and_checkpoints/yolov8`
+2. Install dependencies:
 ```
-cd source_code/code_and_checkpoints/yolov8
-```
-3. Install dependencies:
-```
-pip install -r requirements.txt
+pip install -r code_and_checkpoints/yolov8/requirements.txt
 ```
 
 # Run
@@ -69,3 +65,16 @@ The script takes the following arguments:
 - `save-txt`: use this flag to save the output in `.txt` format. By default, the `run.sh` will use this flag (recommended).
 - `save-json`: use this flag to save detection information in `.json` format. By default, the `run.sh` will use this flag.
 - `exist-ok`: use this flag to overwrite the output folder if it already exists. By default, the `run.sh` will not use this flag. For example, if a folder named `66` has already existed, the default command in `run.sh` will create another folder named `662` to store new output.
+
+# Note
+If you meet this error (happens when converting from `.avi` file to `.mp4` file)
+```
+Moviepy - Building video ../../../predictions/662/66.mp4.
+Moviepy - Writing video ../../../predictions/662/66.mp4
+
+*** TypeError: must be real number, not NoneType
+```
+Please upgrade `moviepy` with the below command:
+```
+pip install --upgrade moviepy
+```

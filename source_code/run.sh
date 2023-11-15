@@ -8,33 +8,34 @@ conda activate medico
 
 CUDA_LAUNCH_BLOCKING=1
 
+cd code_and_checkpoints/yolov8
 # pip install -r requirements.txt
 python3 run.py \
-    --weights=runs/detect/train7/weights/best.pt \
+    --weights=models/yolov8s.pt \
     --source=datasets/Test/66.mp4 \
     --save-txt \
     --save-json
 
 python3 run.py \
-    --weights=runs/detect/train7/weights/best.pt \
+    --weights=models/yolov8s.pt \
     --source=datasets/Test/68.mp4 \
     --save-txt \
     --save-json
 
 python3 run.py \
-    --weights=runs/detect/train7/weights/best.pt \
+    --weights=models/yolov8s.pt \
     --source=datasets/Test/73.mp4 \
     --save-txt \
     --save-json
 
 python3 run.py \
-    --weights=runs/detect/train7/weights/best.pt \
+    --weights=models/yolov8s.pt \
     --source=datasets/Test/76.mp4 \
     --save-txt \
     --save-json
 
 python3 run.py \
-    --weights=runs/detect/train7/weights/best.pt \
+    --weights=models/yolov8s.pt \
     --source=datasets/Test/80.mp4 \
     --save-txt \
     --save-json
