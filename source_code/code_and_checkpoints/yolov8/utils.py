@@ -5,11 +5,6 @@ import torch
 import time
 from ultralytics import YOLO
 
-try:
-    to_unicode = unicode
-except NameError:
-    to_unicode = str
-
 
 def create_json_data(raw_data):
     """

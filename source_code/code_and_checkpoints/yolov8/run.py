@@ -1,8 +1,13 @@
 import argparse
 
 from ultralytics import YOLO
-from utils import (convert_avi_to_mp4, get_save_dir_from_results,
-                   write_json_file)
+from utils import (
+    convert_avi_to_mp4,
+    get_save_dir_from_results,
+    write_json_file,
+    print_fps_and_flops,
+)
+import os
 
 
 # https://docs.python.org/3/library/argparse.html
@@ -120,6 +125,7 @@ def detect(
     )
     save_dir = get_save_dir_from_results(results)
     convert_avi_to_mp4(f"{save_dir}/{name}.avi", f"{save_dir}/{name}.mp4")
+    os.remove(f"{save_dir}/{name}.avi")
     if not save_json:
         return
     write_json_file(results, f"{project}/{name}/{name}_detection.json")
@@ -145,7 +151,11 @@ def track(
         iou=iou,
     )
     save_dir = get_save_dir_from_results(results)
-    convert_avi_to_mp4(f"{save_dir}/{name}.avi", f"{project}/{name}/{name}_tracking.mp4")
+    convert_avi_to_mp4(
+        f"{save_dir}/{name}.avi",
+        f"{project}/{name}/{name}_tracking.mp4",
+    )
+    os.remove(f"{save_dir}/{name}.avi")
 
 
 def perform_detect_task(
@@ -166,6 +176,7 @@ def perform_detect_task(
         opt.conf,
         opt.iou,
     )
+    print_fps_and_flops(model)
 
 
 def perform_track_task(
@@ -183,6 +194,7 @@ def perform_track_task(
         opt.conf,
         opt.iou,
     )
+    print_fps_and_flops(model)
 
 
 def perform_both_tasks(

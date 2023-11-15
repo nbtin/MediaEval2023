@@ -16,7 +16,8 @@ python3 run.py \
     --save-txt \
     --save-json \
     --conf=0.25 \
-    --iou=0.7
+    --iou=0.7 \
+    --exist-ok
 
 python3 run.py \
     --weights=models/yolov8s.pt \
@@ -24,7 +25,8 @@ python3 run.py \
     --save-txt \
     --save-json \
     --conf=0.25 \
-    --iou=0.7
+    --iou=0.7 \
+    --exist-ok
 
 python3 run.py \
     --weights=models/yolov8s.pt \
@@ -32,7 +34,8 @@ python3 run.py \
     --save-txt \
     --save-json \
     --conf=0.25 \
-    --iou=0.7
+    --iou=0.7 \
+    --exist-ok
 
 python3 run.py \
     --weights=models/yolov8s.pt \
@@ -40,7 +43,8 @@ python3 run.py \
     --save-txt \
     --save-json \
     --conf=0.25 \
-    --iou=0.7
+    --iou=0.7 \
+    --exist-ok
 
 python3 run.py \
     --weights=models/yolov8s.pt \
@@ -48,4 +52,5 @@ python3 run.py \
     --save-txt \
     --save-json \
     --conf=0.25 \
-    --iou=0.7
+    --iou=0.7 \
+    --exist-ok
