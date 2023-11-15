@@ -1,8 +1,8 @@
 import argparse
 
 from ultralytics import YOLO
-
-from utils import write_json_file
+from utils import (convert_avi_to_mp4, get_save_dir_from_results,
+                   write_json_file)
 
 
 # https://docs.python.org/3/library/argparse.html
@@ -102,9 +102,11 @@ def detect(
         exist_ok=exist_ok,
         save_conf=True,
     )
+    save_dir = get_save_dir_from_results(results)
+    convert_avi_to_mp4(f"{save_dir}/{name}.avi", f"{save_dir}/{name}.mp4")
     if not save_json:
         return
-    write_json_file(results[0].tojson(), f"{project}/{name}.json")
+    write_json_file(results[0].tojson(), f"{project}/{name}/{name}_detection.json")
 
 
 def track(
@@ -115,12 +117,15 @@ def track(
     exist_ok: bool = False,
 ) -> None:
     """Run tracking task."""
-    model.track(
+    results = model.track(
         source,
+        save=True,
         project=project,
         name=name,
         exist_ok=exist_ok,
     )
+    save_dir = get_save_dir_from_results(results)
+    convert_avi_to_mp4(f"{save_dir}/{name}.avi", f"{project}/{name}/{name}_tracking.mp4")
 
 
 def perform_detect_task(
