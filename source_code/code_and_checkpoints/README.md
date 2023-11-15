@@ -1,27 +1,71 @@
-# YoloV7 trained models:
-https://drive.google.com/drive/folders/10oE7MkhagPhJPCdZuMUCezbnvBNCpo2T?usp=share_link
-# Visem dataset:
-https://drive.google.com/drive/folders/17JWZ_SJ9fvFpKTPUXlkjrJIy8DuooEoi?usp=share_link
+This project uses the YOLOv8 model to perform object detection and tracking on videos.
+
+# Folder structure
+```
+.
+├── predictions
+│   ├── 66
+│   │   ├── 66.avi
+│   │   ├── 66_detection.json
+│   │   ├── 66.mp4
+│   │   ├── 66_tracking.mp4
+│   │   └── labels
+│   │       └── label text files
+    ├── ...
+├── source_code
+│   └── code_and_checkpoints
+│       ├── README.md
+│       └── yolov8
+│           ├── datasets
+│           │   ├── Test
+│           │   │   ├── 66.mp4
+│           │   │   ├── 68.mp4
+│           │   │   ├── 73.mp4
+│           │   │   ├── 76.mp4
+│           │   │   └── 80.mp4
+│           │   ├── Train
+│           │   │   ├── 13
+│           │   │   │   ├── 13.mp4
+│           │   │   │   ├── 13.txt
+│           │   │   │   ├── images
+│           │   │   │   │   └── image frame files (*.jpg)
+│           │   │   │   ├── labels
+│           │   │   │   │   ├── image frame labels (*.txt)
+│           │   │   │   │  
+│           │   │   │   ├── labels.cache
+│           │   │   │   └── labels_ftid
+│           │   │   │       └── labels with feature ID (*.txt)
+│           │   │   ├── ...
+│           │   └── Val (the same structure as `Train` folder)
+│           ├── data.yaml (data configuration file, used for training YOLO model)
+│           ├── README.md
+│           ├── requirements.txt
+│           ├── run.py
+│           ├── run.sh
+│           ├── train.py
+│           ├── ultralytics (YOLOv8 repo folder)
+```
 
 # Setup
-1. Create a conda environemnt with python==3.8
-2. Install PyTorch: follow [PyTorch's official documentation](https://pytorch.org/get-started/previous-versions/#v1121)
-3. Install other packages: ```pip3 install -r requirements.txt```
-4. set current working directory as  /source_code/code_and_checkpoints/
+1. Create a conda environment with `python==3.8`
+2. Set current working directory as `source_code/code_and_checkpoints/yolov8`
+```
+cd source_code/code_and_checkpoints/yolov8
+```
+3. Install dependencies:
+```
+pip install -r requirements.txt
+```
 
 # Run
-## run_detect.sh
-Sperms detection using YoloV7 \
-Parameters: \
- --img-size: the input image size of the yolo model \
---source: the .mp4 videos \
---weights: the yolo model .pt weight \
---suppress: a flag to activate border suppression \
-
-## run_track.sh
-Track sperms in a video using SORT \
-Parameters: \
---img-size: the input image size of the yolo model \
---source: the .mp4 videos \
---yolo-weights: the yolo model .pt weight \
---suppress: a flag to activate border suppression
+The shell script is named `run.sh`. This script can be used to run both detection and tracking.
+The script takes the following arguments:
+- `weights`: the path to the weights file (`*.pt`).
+- `source`: the path to the video file (`*.mp4`).
+- `task`: the task that you want the model to perform (`detect` or `track` or `detect-track`). Default is `detect-track`, to perform both tasks.
+- `img-size`: the input image size of the yolo model. Default is `640`.
+- `project`: the path to the output folder. Default is `predictions` folder, "sibling" to the `source_code` folder.
+- `name`: the name of the sub-folder of `project`, which contains output for a specific video. The system will automatically get the ID of the video (for example, `66` for `66.mp4`) and use it as the name of the sub-folder.
+- `save-txt`: use this flag to save the output in `.txt` format. By default, the `run.sh` will use this flag (recommended).
+- `save-json`: use this flag to save detection information in `.json` format. By default, the `run.sh` will use this flag.
+- `exist-ok`: use this flag to overwrite the output folder if it already exists. By default, the `run.sh` will not use this flag. For example, if a folder named `66` has already existed, the default command in `run.sh` will create another folder named `662` to store new output.
