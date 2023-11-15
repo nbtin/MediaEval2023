@@ -38,6 +38,8 @@ This project uses the YOLOv8 model to perform object detection and tracking on v
 │           │   │   ├── ...
 │           │   └── Val (the same structure as `Train` folder)
 │           ├── data.yaml (data configuration file, used for training YOLO model)
+            ├── models
+                ├── yolov8s.pt
 │           ├── README.md
 │           ├── requirements.txt
 │           ├── run.py
