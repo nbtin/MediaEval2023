@@ -1,0 +1,6 @@
+path: .
+train: ../Train
+val: ../Val
+
+nc: 3 # number of classes
+names: ["sperm", "sperm cluster", "small or pinhead sperm"]

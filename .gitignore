@@ -1,9 +1,9 @@
-.zip
+*.zip
 *.pt
 *.mp4
 *.out
-*.ipynb
 *.ipynb_checkpoints
+*.err
 predictions/
 videos/
 ############################################################### Bytetrack ###############################################################
@@ -12,6 +12,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+Train/
+Val/
 # C extensions
 *.so
 
@@ -176,7 +178,7 @@ YOLOX_outputs
 !cfg/yolov3*.cfg
 
 storage.googleapis.com
-runs/*
+runs/
 data/*
 data/images/*
 !data/*.yaml
@@ -415,3 +417,5 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 data/
+.vscode/
+task.sh
